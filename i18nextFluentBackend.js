@@ -2280,7 +2280,9 @@
     return {
       loadPath: '/locales/{{lng}}/{{ns}}.ftl',
       addPath: '/locales/add/{{lng}}/{{ns}}',
-      parse: ftl2js,
+      parse: function (data, url) {
+        return ftl2js(data);
+      },
       crossDomain: false,
       ajax: ajax
     };
