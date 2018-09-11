@@ -1,0 +1,10 @@
+{
+  "env": {
+    "development": {
+      "presets": ["@babel/preset-env"]
+    },
+    "jsnext": {
+      "presets": [["@babel/preset-env", { "modules": false }]]
+    }
+  }
+}

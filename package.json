@@ -1,0 +1,65 @@
+{
+  "name": "i18next-fluent-backend",
+  "version": "0.0.1",
+  "description": "i18next backend to load fluent formattd .ftl files via xhr",
+  "main": "./index.js",
+  "jsnext:main": "dist/es/index.js",
+  "keywords": [
+    "i18next",
+    "i18next-backend",
+    "fluent"
+  ],
+  "homepage": "https://github.com/i18next/i18next-fluent-backend",
+  "bugs": "https://github.com/i18next/i18next-fluent-backend/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i18next/i18next-fluent-backend"
+  },
+  "dependencies": {
+    "fluent_conv": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-async-generator-functions": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "chai": "^4.1.2",
+    "eslint": "^5.5.0",
+    "eslint-plugin-mocha": "^5.2.0",
+    "i18next": "^11.8.0",
+    "mocha": "^5.2.0",
+    "rimraf": "2.6.2",
+    "rollup": "0.65.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "3.4.0",
+    "rollup-plugin-terser": "^2.0.2",
+    "sinon": "6.2.0",
+    "yargs": "12.0.2"
+  },
+  "scripts": {
+    "test": "mocha -r ./mocha_setup.js",
+    "tdd": "karma start karma.conf.js",
+    "clean": "rimraf dist && mkdirp dist",
+    "copy": "cp ./dist/umd/i18nextFluentBackend.min.js ./i18nextFluentBackend.min.js && cp ./dist/umd/i18nextFluentBackend.js ./i18nextFluentBackend.js",
+    "copy-win": "xcopy .\\dist\\umd\\i18nextFluentBackend.min.js .\\i18nextFluentBackend.min.js /y && xcopy .\\dist\\umd\\i18nextFluentBackend.js .\\i18nextFluentBackend.js /y",
+    "build:es": "BABEL_ENV=jsnext babel src --out-dir dist/es",
+    "build:es-win": "SET BABEL_ENV=jsnext babel src --out-dir dist/es",
+    "build:cjs": "babel src --out-dir dist/commonjs",
+    "build:umd": "rollup -c rollup.config.js --format umd && rollup -c rollup.config.js --format umd --uglify",
+    "build:amd": "rollup -c rollup.config.js --format amd && rollup -c rollup.config.js --format umd --uglify",
+    "build:iife": "rollup -c rollup.config.js --format iife && rollup -c rollup.config.js --format iife --uglify",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:umd && npm run copy",
+    "build-win": "npm run clean && npm run build:cjs && npm run build:es-win && npm run build:umd && npm run copy-win",
+    "preversion": "npm run test && npm run build && git push",
+    "postversion": "git push && git push --tags"
+  },
+  "author": "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
+  "license": "MIT",
+  "lock": false
+}
