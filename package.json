@@ -1,6 +1,6 @@
 {
   "name": "i18next-fluent-backend",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "i18next backend to load fluent formattd .ftl files via xhr",
   "main": "./index.js",
   "jsnext:main": "dist/es/index.js",
@@ -16,7 +16,7 @@
     "url": "https://github.com/i18next/i18next-fluent-backend"
   },
   "dependencies": {
-    "fluent_conv": "^1.0.2"
+    "fluent_conv": "^3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

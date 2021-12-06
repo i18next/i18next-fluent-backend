@@ -1,7 +1,7 @@
 import * as utils from './utils.js';
 import ajax from './ajax.js';
 
-import ftl2js from 'fluent_conv/ftl2js';
+import ftl2js from 'fluent_conv/lib/ftl2js';
 
 function getDefaults() {
   return {
