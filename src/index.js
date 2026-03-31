@@ -31,7 +31,7 @@ class Backend {
 	    loadPath = this.options.loadPath([language], [namespace]);
     }
 
-    let url = this.services.interpolator.interpolate(loadPath, { lng: language, ns: namespace });
+    let url = utils.interpolate(loadPath, { lng: language, ns: namespace });
 
     this.loadUrl(url, callback);
   }

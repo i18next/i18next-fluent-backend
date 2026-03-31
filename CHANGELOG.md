@@ -1,3 +1,7 @@
+### 1.0.1
+
+- use own interpolation function for loadPath and addPath instead of relying on i18next's interpolator
+
 ### 1.0.0
 
 - merge invalid import for fluent_conv [4](https://github.com/i18next/i18next-fluent-backend/pull/4)

@@ -1,7 +1,6 @@
 # Introduction
 
 [![npm version](https://img.shields.io/npm/v/i18next-fluent-backend.svg?style=flat-square)](https://www.npmjs.com/package/i18next-fluent-backend)
-[![David](https://img.shields.io/david/i18next/i18next-fluent-backend.svg?style=flat-square)](https://david-dm.org/i18next/i18next-fluent-backend)
 
 This is a simple i18next backend to be used in the browser. It will load resource in fluent format (.ftl) from a backend server using xhr.
 

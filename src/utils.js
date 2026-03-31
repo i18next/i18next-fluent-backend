@@ -23,3 +23,11 @@ export function extend(obj) {
   });
   return obj;
 }
+
+const interpolationRegexp = /\{\{(.+?)\}\}/g
+export function interpolate (str, data) {
+  return str.replace(interpolationRegexp, (match, key) => {
+    const value = data[key.trim()]
+    return value != null ? value : match
+  })
+}
