@@ -1,31 +1,20 @@
 function addQueryString(url, params) {
-  if (params && typeof params === 'object') {
-    let queryString = '',
-      e = encodeURIComponent;
+  if (!params || typeof params !== 'object') return url;
 
-    // Must encode data
-    for (let paramName in params) {
-      queryString += '&' + e(paramName) + '=' + e(params[paramName]);
-    }
+  // Must encode data
+  const queryString = Object.keys(params)
+    .map((name) => `${encodeURIComponent(name)}=${encodeURIComponent(params[name])}`)
+    .join('&');
+  if (!queryString) return url;
 
-    if(!queryString) {
-      return url;
-    }
-
-    url = url + (url.indexOf('?') !== -1 ? '&' : '?') + queryString.slice(1);
-  }
-
-  return url
+  return url + (url.indexOf('?') !== -1 ? '&' : '?') + queryString;
 }
-
 
 // https://gist.github.com/Xeoncross/7663273
 function ajax(url, options, callback, data, cache) {
-
   if (data && typeof data === 'object') {
-    if (!cache) {
-      data['_t'] = new Date();
-    }
+    // eslint-disable-next-line no-underscore-dangle
+    if (!cache) data._t = new Date();
     // URL encoded form data must be in querystring format
     data = addQueryString('', data).slice(1);
   }
@@ -35,12 +24,7 @@ function ajax(url, options, callback, data, cache) {
   }
 
   try {
-    var x
-    if (XMLHttpRequest) {
-      x = new XMLHttpRequest();
-    } else {
-      x = new ActiveXObject('MSXML2.XMLHTTP.3.0');
-    }
+    const x = new XMLHttpRequest();
     x.open(data ? 'POST' : 'GET', url, 1);
     if (!options.crossDomain) {
       x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -50,20 +34,18 @@ function ajax(url, options, callback, data, cache) {
       x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     }
     if (x.overrideMimeType) {
-      x.overrideMimeType("application/json");
+      x.overrideMimeType('application/json');
     }
-    var h = options.customHeaders;
+    const h = options.customHeaders;
     if (h) {
-      for (var i in h) {
-        x.setRequestHeader(i, h[i]);
-      }
+      Object.keys(h).forEach((name) => x.setRequestHeader(name, h[name]));
     }
-    x.onreadystatechange = function() {
-      x.readyState > 3 && callback && callback(x.responseText, x);
+    x.onreadystatechange = () => {
+      if (x.readyState > 3 && callback) callback(x.responseText, x);
     };
     x.send(data);
   } catch (e) {
-    console && console.log(e);
+    console.log(e); // eslint-disable-line no-console
   }
 }
 

@@ -10,8 +10,8 @@ bower.json
 gulpfile.js
 karma.conf.js
 .coveralls.yml
-rollup.config.js
-mocha_setup.js
+.github
+rollup.config.mjs
 # npm ignores .gitignore once .npmignore exists, so local/secret files are mirrored here
 .claude
 .vscode

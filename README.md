@@ -4,9 +4,11 @@
 
 This is a simple i18next backend to be used in the browser. It will load resource in fluent format (.ftl) from a backend server using xhr.
 
+Use it together with [i18next-fluent](https://github.com/i18next/i18next-fluent), which formats the loaded messages. It is tested with i18next 26.
+
 # Getting started
 
-Source can be loaded via [npm](https://www.npmjs.com/package/i18next-fluent-backend), bower or [downloaded](https://github.com/i18next/i18next-xhr-backend/blob/master/i18nextFluentBackend.min.js) from this repo.
+Source can be loaded via [npm](https://www.npmjs.com/package/i18next-fluent-backend) or [downloaded](https://github.com/i18next/i18next-fluent-backend/blob/master/i18nextFluentBackend.min.js) from this repo.
 
 ```
 # npm package
@@ -17,9 +19,10 @@ Wiring up:
 
 ```js
 import i18next from "i18next";
+import Fluent from "i18next-fluent";
 import FluentBackend from "i18next-fluent-backend";
 
-i18next.use(FluentBackend).init(i18nextOptions);
+i18next.use(Fluent).use(FluentBackend).init(i18nextOptions);
 ```
 
 - As with all modules you can either pass the constructor function (class) to the i18next.use or a concrete instance.
@@ -36,7 +39,7 @@ i18next.use(FluentBackend).init(i18nextOptions);
   loadPath: '/locales/{{lng}}/{{ns}}.ftl',
 
   // path to post missing resources
-  addPath: 'locales/add/{{lng}}/{{ns}}',
+  addPath: '/locales/add/{{lng}}/{{ns}}',
 
   // override fluent parser
   parse: function(data) { return data.replace(/a/g, ''); },
@@ -52,7 +55,10 @@ i18next.use(FluentBackend).init(i18nextOptions);
   ajax: function (url, options, callback, data) {},
 
   // adds parameters to resource URL. 'example.com' -> 'example.com?v=1.3.5'
-  queryStringParams: { v: '1.3.5' }
+  queryStringParams: { v: '1.3.5' },
+
+  // adds headers to every request
+  customHeaders: { authorization: 'Bearer ...' }
 }
 ```
 
@@ -81,7 +87,7 @@ via calling init:
 ```js
 import FluentBackend from "i18next-fluent-backend";
 const fltBackend = new FluentBackend();
-fltBackend.init(options);
+fltBackend.init(null, options);
 ```
 
 ---
