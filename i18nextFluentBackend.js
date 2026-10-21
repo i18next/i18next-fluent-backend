@@ -1420,7 +1420,7 @@
       var _this = this;
       return {
         key: this[getTypeName(item.id)](item.id),
-        value: this[getTypeName(item.value)](item.value),
+        value: item.value && this[getTypeName(item.value)](item.value),
         comment: item.comment && this[getTypeName(item.comment)](item.comment),
         attributes: item.attributes && item.attributes.map(function (attr) {
           return _this.serialize(attr);
@@ -1535,7 +1535,8 @@
       });
       item.arguments.named.forEach(function (n, i) {
         if (i > 0 || args !== '') args += ', ';
-        args += "".concat(n.name.name, ": \"").concat(n.value.value, "\"");
+        var value = n.value.type === 'NumberLiteral' ? n.value.value : "\"".concat(n.value.value, "\"");
+        args += "".concat(n.name.name, ": ").concat(value);
       });
       if (plain) return "".concat(item.id.name, "(").concat(args, ")");
       return "{ ".concat(item.id.name, "(").concat(args, ") }");
@@ -1544,7 +1545,8 @@
       return "{ -".concat(item.id.name, " }");
     },
     getMessageReference: function getMessageReference(item) {
-      return "{ ".concat(item.id.name, " }");
+      var attr = item.attribute ? ".".concat(item.attribute.name) : '';
+      return "{ ".concat(item.id.name).concat(attr, " }");
     },
     getJunk: function getJunk(item) {
       var parts = item.content.split('=');
@@ -1578,7 +1580,7 @@
             inner[attr.key] = attr.value;
           });
         }
-        inner.val = item.value;
+        if (item.value !== null) inner.val = item.value;
         mem[item.key] = inner;
       } else {
         mem[item.key] = item.value;

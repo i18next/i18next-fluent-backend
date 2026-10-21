@@ -14,6 +14,10 @@ emails = { $unreadEmails ->
 about = About { -brand }
 login = Login
     .placeholder = email@example.com
+login-input =
+    .placeholder = email@example.com
+hint = Enter { login.placeholder }
+price = { NUMBER($amount, minimumFractionDigits: 2) }
 `;
 
 // answers like the browser's XMLHttpRequest would, and remembers the calls
@@ -45,7 +49,11 @@ for (const [name, Backend] of Object.entries(
             emails: '{ $unreadEmails ->\n  [one] You have one unread email.\n *[other] You have { $unreadEmails } unread emails.\n}',
             '-brand': 'Firefox',
             about: 'About { -brand }',
-            login: { val: 'Login', placeholder: 'email@example.com' }
+            login: { val: 'Login', placeholder: 'email@example.com' },
+            // fluent_conv >= 3.3.1: attribute-only messages, attributes of references and number literals are kept
+            'login-input': { placeholder: 'email@example.com' },
+            hint: 'Enter { login.placeholder }',
+            price: '{ NUMBER($amount, minimumFractionDigits: 2) }'
           });
           done();
         });
@@ -167,6 +175,7 @@ for (const [name, Backend] of Object.entries(
       it('loads the namespace into the store', () => {
         expect(i18n.t('about')).toBe('About { -brand }');
         expect(i18n.t('login.placeholder')).toBe('email@example.com');
+        expect(i18n.t('login-input.placeholder')).toBe('email@example.com');
       });
 
       it('saves missing keys through create', () => {

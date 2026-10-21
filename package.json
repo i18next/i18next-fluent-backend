@@ -16,7 +16,7 @@
     "url": "https://github.com/i18next/i18next-fluent-backend"
   },
   "dependencies": {
-    "fluent_conv": "^3.3.0"
+    "fluent_conv": "^3.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.29.0",
