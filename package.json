@@ -1,6 +1,6 @@
 {
   "name": "i18next-fluent-backend",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "i18next backend to load fluent formattd .ftl files via xhr",
   "main": "./index.js",
   "module": "dist/es/index.js",
