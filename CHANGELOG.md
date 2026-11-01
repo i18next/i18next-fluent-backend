@@ -1,3 +1,7 @@
+### 1.1.1
+
+- fix: i18next 26.7.0 deprecates guessing the calling convention of a backend from the number of parameters of its methods; the backend now declares it with `callbackApi`, so i18next calls `read` and `create` with a callback (and passes `create` its options), and debug mode no longer logs the deprecation notice. Older i18next versions ignore it.
+
 ### 1.1.0
 
 - fix: the CommonJS build (`require('i18next-fluent-backend')`) required fluent_conv's ES module file, which Node.js only loads through `require` since 20.19 and 22.12. It now imports `fluent_conv/ftl2js`, which resolves to fluent_conv's CommonJS build for `require`.
